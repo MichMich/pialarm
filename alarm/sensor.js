@@ -16,6 +16,7 @@ function Sensor()
 
 	var pin = 0;
 	var name = 'unknown';
+	var updated = Date.now();
 
 
 	var eventSubscriptions = {};
@@ -27,6 +28,7 @@ function Sensor()
 		if (state != toggleState) {
 			state = toggleState;
 			fire('toggle');
+			updated = Date.now();
 		}
 	}
 
@@ -69,6 +71,7 @@ function Sensor()
 
 
 	// Privileged functions
+
 	this.state = function()
 	{
 
@@ -92,6 +95,11 @@ function Sensor()
 		} else {
 			return name;
 		}
+	}
+
+	this.updated = function()
+	{
+		return updated;
 	}
 
 	this.on = function (eventName, callback)
@@ -135,5 +143,10 @@ function Sensor()
 		setTimeout(simulateToggle, randomTime());
 	}
 };
+
+Sensor.prototype.publicObject = function() 
+{
+	return {name: this.name(), state:this.state(), updated:this.updated()};
+}
 
 module.exports = Sensor;

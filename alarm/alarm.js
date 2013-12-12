@@ -61,11 +61,15 @@ function Alarm()
 
 	}
 
-	this.listSensors = function(callback)
+	this.sensors = function()
+	{
+		return sensors;
+	}
+
+	this.listSensors = function(callback )
 	{
 		for (var i in sensors) {
 			var sensor = sensors[i];
-
 			callback(sensor);
 		}
 	}
@@ -98,9 +102,16 @@ function Alarm()
     }
 }
 
-Alarm.prototype.test = function() 
+Alarm.prototype.publicObject = function() 
 {
-	console.log('Test :)');
-};
+	var result = [];
+	var sensors = this.sensors();
+	for (var i in sensors) {
+		var sensor = sensors[i];
+		result.push(sensor.publicObject());
+	}
+
+	return result;
+}
 
 module.exports = Alarm;
