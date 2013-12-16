@@ -15,6 +15,7 @@ function Sensor()
 	var state = false;
 
 	var pin = 0;
+	var identifier;
 	var name = 'unknown';
 	var updated = Date.now();
 
@@ -53,7 +54,6 @@ function Sensor()
 		}
     };
 
-
    	var startReadout = function()
    	{
    		clearInterval(readLoop);
@@ -74,7 +74,6 @@ function Sensor()
 
 	this.state = function()
 	{
-
 		return state;
 	}
 
@@ -85,6 +84,15 @@ function Sensor()
 			startReadout();
 		} else {
 			return pin;
+		}
+	}
+
+	this.identifier = function()
+	{
+		if (arguments.length === 1) {
+			identifier = arguments[0];
+		} else {
+			return identifier;
 		}
 	}
 
@@ -146,7 +154,7 @@ function Sensor()
 
 Sensor.prototype.publicObject = function() 
 {
-	return {name: this.name(), state:this.state(), updated:this.updated()};
+	return {name: this.name(), state:this.state(), updated:this.updated(), identifier:this.identifier()};
 }
 
 module.exports = Sensor;

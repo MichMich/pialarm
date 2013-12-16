@@ -1,0 +1,63 @@
+<html>
+<head>
+	<title>PiAlarm - By MichMich</title>
+	<style type="text/css">
+		body, html {
+			margin: 0px;
+			padding: 0px;
+			font-family: arial;
+			height: 100%;
+			background-color: #eee;
+		}
+		.sensor {
+			position: relative;
+			background-color: #fff;
+			text-align: center;
+			margin-bottom: 1px;
+		}
+		.sensor .name, .sensor .updated {
+			position: absolute;
+			top: 50%;
+			left: 0px;
+			width: 100%;
+		}
+
+		.sensor .name {
+			line-height: 30px;
+			height: 30px;
+			margin-top: -22px;
+			font-size: 25px;
+			font-weight: bold;
+
+		}
+
+		.sensor .updated {
+			line-height: 15px;
+			height: 15px;
+			margin-top: 5px;
+			font-size: 14px;
+		}
+
+		.active {
+			background-color: red;
+			color: white;
+		}
+	</style>
+
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+	<meta name="format-detection" content="telephone=no">
+
+	<meta name = "viewport" content = "width = device-width, initial-scale = 1, user-scalable = no">
+</head>
+<body>
+
+
+
+<script src="http://code.jquery.com/jquery-2.0.3.min.js"></script>
+<script src="/socket.io/socket.io.js"></script>
+<script src="js/moment.min.js" type="text/javascript"></script>
+<script src="js/livestamp.min.js" type="text/javascript"></script>
+<script src="js/main.js" type="text/javascript"></script>
+</body>
+</html>

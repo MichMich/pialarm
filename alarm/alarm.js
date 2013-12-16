@@ -33,8 +33,8 @@ function Alarm()
 		var sensor = new Sensor();
 
 		sensor.pin(properties.pin);
+		sensor.identifier(properties.identifier);
 		sensor.name(properties.name);
-
 
 		sensors.push(sensor);
 
