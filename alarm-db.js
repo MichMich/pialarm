@@ -7,8 +7,13 @@ var sensors = [
 	{pin: 12, name: 'Zijkamer', 	identifier: 'spareroom'}
 ];
 
+var databaseConnectionString = "mysql://alarm:alarm@localhost/alarm";
+
+
 // load modules
 var Alarm = require('./alarm/alarm');
+var DB = require('./alarm/db');
+
 
 // create instances
 var express = require('express');
@@ -16,8 +21,10 @@ var app = express();
 var io = require('socket.io').listen(app.listen(8080));
 var alarm = new Alarm();
 
+
 // enable public webserver
 app.use(express.static(__dirname + '/public'));
+
 
 // add sensors to alarm
 alarm.addSensors(sensors);
@@ -28,7 +35,21 @@ alarm.listSensors(function(sensor) {
 
 // debugging
 alarm.onToggle(function(sensor) {
-	console.log(sensor.identifier() + ': ' +sensor.state());
+	console.log(sensor.identifier());
+});
+
+// setup database storage
+new DB(databaseConnectionString, function(models) {
+	alarm.onToggle(function(sensor) {
+		models.event.create([
+		{	identifier: sensor.identifier(),
+			state: sensor.state()
+		}], function(err, items) {
+			if (err) {
+				console.log(err);
+			} 
+		});
+	});
 });
 
 // setup websocket broadcasting for webinterface
@@ -38,3 +59,4 @@ io.sockets.on('connection', function (socket) {
 		socket.emit('sensor', sensor.publicObject());
 	});
 });
+
